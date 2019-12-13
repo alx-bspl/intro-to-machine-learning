@@ -27,7 +27,7 @@ labels_train = labels_train[:int(len(labels_train)*scale)]
 
 #########################################################
 ### your code goes here ###
-def predict(C, scale = 1):
+def predict(C):
     clf = SVC(kernel='rbf', C=C, gamma='auto')
     print(f"Using {clf}")
 
@@ -52,5 +52,3 @@ for C in reversed((1, 10, 100, 1000, 10000)):
     predict(C)
     print()
 #########################################################
-
-

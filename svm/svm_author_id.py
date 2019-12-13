@@ -36,5 +36,3 @@ print(f"Prediction time: {round(time()-t0, 3)}")  # ~0.015
 acc = accuracy_score(labels_test, labels_pred)
 print(f"Accuracy: {acc}")  # ~0.990
 #########################################################
-
-
