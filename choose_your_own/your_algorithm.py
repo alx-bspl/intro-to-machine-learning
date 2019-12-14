@@ -1,8 +1,10 @@
 #!/usr/bin/python
-
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
-from class_vis import prettyPicture
+from class_vis import pretty_picture
+from time import time
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
 
 features_train, labels_train, features_test, labels_test = makeTerrainData()
 
@@ -28,11 +30,23 @@ plt.show()
 ################################################################################
 
 
-### your code here!  name your classifier object clf if you want the 
-### visualization code (prettyPicture) to show you the decision boundary
+def k_nearest_neighbors(n_neighbors=5):
+    clf = KNeighborsClassifier(n_neighbors=n_neighbors)
+    print(f"Using {clf}")
 
+    t0 = time()
+    clf.fit(features_train, labels_train)
+    print(f"Training time: {round(time() - t0, 3)}")  #
 
-try:
+    t0 = time()
+    labels_pred = clf.predict(features_test)
+    print(f"Prediction time: {round(time() - t0, 3)}")  #
+
+    acc = accuracy_score(labels_test, labels_pred)
+    print(f"Accuracy: {acc}")  #
+
     pretty_picture(clf, features_test, labels_test)
-except NameError:
-    pass
+
+
+for n in (1, 2, 5, 10, 20, 40):
+    k_nearest_neighbors(n_neighbors=n)  # best accuracy: 0.94
